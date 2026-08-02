@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aqua-Boundary — Zubair Ahmed</title>
+<meta name="description" content="A distributed geospatial ML pipeline that detects and segments aquaculture pond boundaries from Sentinel-2 imagery and emits production-ready GeoJSON. YOLOv8 + SAM ViT-H, orchestrated with Temporal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="../index.html">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">Case study 01 · Detection</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">All work</a>
+    <p class="eyebrow">Detection · production pipeline</p>
+    <h1>Aqua-Boundary</h1>
+    <p class="lede">
+      A distributed geospatial ML pipeline that detects and segments aquaculture pond boundaries
+      from satellite imagery and emits production-ready vector GeoJSON.
+    </p>
+
+    <dl class="capture">
+      <div><dt>Role</dt><dd>Sole engineer</dd></div>
+      <div><dt>Sensor</dt><dd>Sentinel-2 MSI L2A<br>AWS ODR · Planetary Computer</dd></div>
+      <div><dt>Region</dt><dd>4 districts<br>Andhra Pradesh, India</dd></div>
+      <div><dt>Models</dt><dd>YOLOv8 → SAM ViT-H<br>6 trained &amp; benchmarked</dd></div>
+      <div><dt>Result</dt><dd>94% mIoU<br>30 min → 2 min per tile</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+
+      <h2>The problem</h2>
+      <p>
+        Data collection and surveying in aquaculture is still done by hand. It is labour intensive,
+        slow, and prone to human error — and at delta scale, it simply does not finish. The proposal
+        was to replace manual survey with boundary delineation driven by remotely sensed data.
+      </p>
+
+      <h3>Objectives</h3>
+      <ul>
+        <li>Build a strong inland fisheries geospatial database.</li>
+        <li>Modernise and strengthen the aquaculture value chain.</li>
+        <li>Give value-chain stakeholders the means to monitor sustainability and drive innovation.</li>
+      </ul>
+
+      <h3>My role</h3>
+      <p>
+        Sole engineer on the pipeline. I manually delineated the boundaries that became the training
+        set, trained and tuned the ML and DL models, designed the workflow architecture, built the
+        inference stages, and took it from prototype to containerised deployment.
+      </p>
+
+      <h2>Data</h2>
+      <table class="dtable">
+        <thead><tr><th>Source</th><th>What it gives</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Sentinel-2<br>AWS &amp; Planetary Computer</td>
+            <td>Imagery across 12 spectral bands at roughly a five-day revisit, enough to observe the phenological and environmental changes that come with shrimp farming. High temporal and spectral resolution makes it well suited to aquaculture monitoring.</td>
+          </tr>
+          <tr>
+            <td>Ground truth<br>Google satellite basemap</td>
+            <td>Sentinel-2 scenes were visually interpreted and validated against the Google satellite basemap.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        The dataset for the whole study was created from scratch, through visual interpretation and
+        manual delineation.
+      </p>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/bd-workflow.jpg" alt="End-to-end methodology workflow diagram for the pond boundary detection pipeline" loading="lazy" width="1600" height="841">
+      </div>
+      <figcaption><b>Fig. 01</b><span>End-to-end methodology, from raster acquisition through detection and segmentation to vectorised pond boundaries.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Experiments</h2>
+      <p>
+        The research ran across four districts of Andhra Pradesh known for aquaculture. Six models
+        were trained and tested in total. The YOLO + SAM combination outperformed every other
+        configuration.
+      </p>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/bd-metrics.png" alt="Table of accuracy metrics comparing the six trained segmentation models for one region" loading="lazy" width="968" height="536">
+      </div>
+      <figcaption><b>Fig. 02</b><span>Metrics from one of the four study regions, across all six trained models.</span></figcaption>
+    </figure>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/bd-compare-1.jpg" alt="Side by side visual comparison of pond boundary predictions from each model" loading="lazy" width="1600" height="875">
+      </div>
+      <figcaption><b>Fig. 03</b><span>Visual comparison of model outputs against the same scene.</span></figcaption>
+    </figure>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/bd-compare-2.jpg" alt="Further visual comparison of segmentation outputs across models" loading="lazy" width="1014" height="490">
+      </div>
+      <figcaption><b>Fig. 04</b><span>Boundary fidelity at pond edges — where the two-stage approach separates from single-stage segmentation.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>What I built</h2>
+      <ul>
+        <li>A geospatial training dataset created from scratch by manual delineation.</li>
+        <li>Training and performance optimisation across six model configurations.</li>
+        <li>A two-stage detection pipeline: <strong>YOLOv8 proposes pond regions, SAM ViT-H refines them into precise masks</strong>, which are then vectorised to GeoJSON.</li>
+        <li>A Temporal-orchestrated workflow that puts the two model stages on independent task queues, so each can be scaled and tuned separately.</li>
+        <li>A FastAPI trigger-and-poll API over the workflow.</li>
+        <li>Docker packaging with separate API and worker images.</li>
+      </ul>
+
+      <h2>How it works</h2>
+      <p>
+        Input is raster tiles pulled from S3. Output is GeoJSON boundaries written back to S3,
+        alongside a rendered PNG for quick visual review.
+      </p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step"><em>Stage 01</em><span>Generate model input, upload to S3</span></div>
+      <div class="flow-step"><em>Stage 02</em><span>YOLO detection activity</span></div>
+      <div class="flow-step"><em>Stage 03</em><span>SAM segmentation activity</span></div>
+      <div class="flow-step"><em>Stage 04</em><span>Vectorisation to GeoJSON</span></div>
+      <div class="flow-step"><em>Stage 05</em><span>PNG visualisation</span></div>
+    </div>
+
+    <div class="prose">
+      <h3>API contract</h3>
+      <table class="dtable">
+        <thead><tr><th>Request</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>latitude</td><td>float</td></tr>
+          <tr><td>longitude</td><td>float</td></tr>
+          <tr><td>start_date</td><td>str — defaults to a fixed 3 or 6 month window ending today</td></tr>
+          <tr><td>end_date</td><td>str — defaults to a fixed 3 or 6 month window ending today</td></tr>
+        </tbody>
+      </table>
+
+      <table class="dtable">
+        <thead><tr><th>Response</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>boundary_geojson</td><td>dict — the delineated pond boundaries</td></tr>
+          <tr><td>output_s3_key</td><td>str — GeoJSON location in S3</td></tr>
+          <tr><td>image_output_s3_key</td><td>str — rendered PNG location in S3</td></tr>
+          <tr><td>internal_data</td><td>dict — metadata carried across workflow activities</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Request sequence</h3>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step"><em>01</em><span>Client calls FastAPI</span></div>
+      <div class="flow-step"><em>02</em><span>Validate request</span></div>
+      <div class="flow-step"><em>03</em><span>Fetch satellite data</span></div>
+      <div class="flow-step"><em>04</em><span>Generate pond boundaries</span></div>
+      <div class="flow-step"><em>05</em><span>Return result</span></div>
+    </div>
+
+    <div class="prose">
+      <h2>Results</h2>
+      <ul>
+        <li>Processes three 1.3 × 1.3 km images in about two minutes.</li>
+        <li>Replaces an average of 30 minutes of manual digitisation per tile with two minutes of GeoAI segmentation.</li>
+        <li>94% mIoU sustained across four geographically distinct regions.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap p-next">
+  <a href="../index.html#work">← All work</a>
+  <a href="shrimp-index.html">Next: Shrimp Index (SI) →</a>
+</div>
+
+</main>
+
+<footer class="wrap foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span><a href="mailto:zubahme97@gmail.com" style="color:inherit">zubahme97@gmail.com</a></span>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIRAS / EWIS — Zubair Ahmed</title>
+<meta name="description" content="A rule-based early warning and information system for shrimp farms, combining temporal spectral patterns from Sentinel-2 with in-situ average body weight sampling to raise risk alerts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="../index.html">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">Case study 03 · Early warning</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">All work</a>
+    <p class="eyebrow">Decision system · early warning</p>
+    <h1>SIRAS / EWIS</h1>
+    <p class="lede">
+      Shrimp Index Risk Alert System — an early warning and information system that flags trouble in
+      a pond while there is still time to act on it.
+    </p>
+
+    <dl class="capture">
+      <div><dt>Role</dt><dd>In-situ correlation<br>&amp; alert system design</dd></div>
+      <div><dt>Inputs</dt><dd>Sentinel-2 spectral trends<br>+ in-situ ABW samples</dd></div>
+      <div><dt>Method</dt><dd>Rule-based classification<br>on rate of change</dd></div>
+      <div><dt>Output</dt><dd>PCS / PHS scores<br>&amp; combined alert label</dd></div>
+      <div><dt>Result</dt><dd>80% overall accuracy<br>across multiple regions</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+
+      <h2>The problem</h2>
+      <p>
+        Shrimp farming is vulnerable to disease, poor water quality and environmental change, any of
+        which can cause significant production loss. Most farmers identify these problems only once
+        they are already severe, which sharply limits what corrective action can still do.
+      </p>
+      <p>
+        An early warning and information system detects risk at an early stage and issues a timely
+        alert — enabling proactive measures, reducing losses, and improving overall farm
+        productivity.
+      </p>
+
+      <h3>My role</h3>
+      <p>
+        Collecting and correlating in-situ data from shrimp culture farms with the patterns observed
+        in spectral signatures, and developing the risk alert system that turns that correlation into
+        an action a farmer can take.
+      </p>
+
+      <h3>Objectives</h3>
+      <ul>
+        <li>Use alerts observed within ponds together with remotely sensed data to develop a rule-based alert system.</li>
+        <li><strong>Generate early risk alerts</strong> for disease outbreaks, water quality deterioration and abnormal growth conditions — enabling timely intervention and more sustainable shrimp farming.</li>
+      </ul>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/ewis-workflow.jpg" alt="End-to-end methodology workflow diagram for the early warning information system" loading="lazy" width="1600" height="1071">
+      </div>
+      <figcaption><b>Fig. 01</b><span>End-to-end methodology, from spectral time series through state classification to alert labelling.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>How it works</h2>
+      <p>
+        The system takes the temporal pattern of each pond's spectral signature and computes its rate
+        of change over time, using that to classify ponds into health states. It then compares
+        average body weight (ABW) sampled on site against the standard ABW for that day of culture,
+        and uses the gap to set the alert label.
+      </p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step"><em>Stage 01</em><span>Generate input, upload to S3</span></div>
+      <div class="flow-step"><em>Stage 02</em><span>RAS detects risk from spectral signature patterns</span></div>
+      <div class="flow-step"><em>Stage 03</em><span>Compare sampled ABW against standard ABW</span></div>
+      <div class="flow-step"><em>Stage 04</em><span>Flag alerts, return JSON with metadata</span></div>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/ewis-maps.jpg" alt="Sample SIRAS and EWIS risk maps across a farm cluster" loading="lazy" width="1600" height="747">
+      </div>
+      <figcaption><b>Fig. 02</b><span>Sample SIRAS / EWIS maps — pond-level risk state across a farm cluster.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>What I built</h2>
+      <ul>
+        <li>A correlation study linking in-situ farm observations to the spectral behaviour of the same ponds over the culture cycle.</li>
+        <li>A rule set that classifies pond state from the <strong>rate of change</strong> of the spectral signature, rather than from any single observation.</li>
+        <li>A growth check that compares sampled ABW against the standard ABW curve for the pond's day of culture.</li>
+        <li>Two separate scores — pond culture state (PCS) and pond health state (PHS) — plus a combined alert label, so a farm manager can see which of the two is driving the warning.</li>
+        <li>A FastAPI service over the alert engine, returning JSON alerts with the metadata needed to act on them.</li>
+      </ul>
+
+      <h3>API contract</h3>
+      <table class="dtable">
+        <thead><tr><th>Request</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>pondid</td><td>str</td></tr>
+          <tr><td>stocking_date</td><td>str</td></tr>
+          <tr><td>harvest_date</td><td>str, optional</td></tr>
+        </tbody>
+      </table>
+
+      <table class="dtable">
+        <thead><tr><th>Response</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td>time</td><td>Timestamp of the assessment.</td></tr>
+          <tr><td>pondid / pond</td><td>Pond identifier.</td></tr>
+          <tr><td>PCS</td><td>Pond culture state score.</td></tr>
+          <tr><td>PHS</td><td>Pond health state score.</td></tr>
+          <tr><td>Alert_PCS</td><td>Alert raised on culture state.</td></tr>
+          <tr><td>Alert_PHS</td><td>Alert raised on health state.</td></tr>
+          <tr><td>Alert_Combined</td><td>Combined signal across both.</td></tr>
+          <tr><td>Alert_Label</td><td>Final label surfaced to the farm.</td></tr>
+          <tr><td>DOC</td><td>Day of culture.</td></tr>
+          <tr><td>STD_abw</td><td>Standard average body weight for that DOC.</td></tr>
+          <tr><td>Sampling_abw</td><td>Average body weight measured on site.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Request sequence</h3>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step"><em>01</em><span>Client calls FastAPI</span></div>
+      <div class="flow-step"><em>02</em><span>Validate request</span></div>
+      <div class="flow-step"><em>03</em><span>Fetch satellite and in-situ data</span></div>
+      <div class="flow-step"><em>04</em><span>Generate alerts</span></div>
+      <div class="flow-step"><em>05</em><span>Return result</span></div>
+    </div>
+
+    <div class="prose">
+      <h2>Results</h2>
+      <ul>
+        <li>The proposed rule-based method achieved <strong>80% overall accuracy across multiple regions</strong>.</li>
+        <li>Risk is surfaced from the trajectory of the spectral signature, so an alert can arrive before the problem is visible at the pond.</li>
+      </ul>
+      <p>
+        The index this system watches is documented in
+        <a href="shrimp-index.html">Shrimp Index (SI)</a>, and the pond geometries it runs over come
+        from <a href="aqua-boundary.html">Aqua-Boundary</a>.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap p-next">
+  <a href="shrimp-index.html">← Shrimp Index (SI)</a>
+  <a href="../index.html#work">All work →</a>
+</div>
+
+</main>
+
+<footer class="wrap foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span><a href="mailto:zubahme97@gmail.com" style="color:inherit">zubahme97@gmail.com</a></span>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

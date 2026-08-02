@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zubair Ahmed — Geospatial Data Scientist</title>
+<meta name="description" content="Geospatial data scientist building remote-sensing ML pipelines for aquaculture: pond boundary segmentation with YOLOv8 and SAM, aerator detection, water quality estimation, a species-specific spectral index, and a rule-based early-warning system.">
+<meta name="author" content="Zubair Ahmed">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zubair Ahmed — Geospatial Data Scientist">
+<meta property="og:description" content="Remote-sensing ML for aquaculture: pond boundaries, spectral indices, early-warning systems.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="#top">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">16.5449° N &nbsp;81.5212° E &nbsp;/&nbsp; Krishna–Godavari delta</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+
+    <div>
+      <p class="eyebrow">Geospatial data scientist · Bengaluru, India</p>
+      <h1>Zubair&nbsp;Ahmed</h1>
+      <p class="deck">Reading shrimp ponds from orbit.</p>
+      <p class="bio">
+        I build remote-sensing ML systems for aquaculture at Captain Fresh: pond boundary
+        segmentation, aerator detection, water quality estimation, a species-specific spectral
+        index, and a rule-based early-warning system — running across four districts of
+        Andhra Pradesh.
+      </p>
+      <div class="btns">
+        <a class="btn btn-solid" href="assets/Zubair_Ahmed_Resume.pdf" download>Download CV</a>
+        <a class="btn" href="https://github.com/zubair9703" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="http://www.linkedin.com/in/zubair-ahmed-106103173" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- ---- signature element: the spectral curve the work is built on ---- -->
+    <figure class="spectral" data-spectral style="margin:0">
+      <figcaption class="spectral-head">
+        <span>Spectral signature · shrimp pond vs. open water</span>
+        <span>Sentinel-2 MSI L2A</span>
+      </figcaption>
+
+      <svg viewBox="0 0 620 300" role="img" aria-label="Reflectance curve of a shrimp pond across Sentinel-2 bands, rising sharply through the red edge and near infrared and collapsing in the shortwave infrared, compared with a flat, low curve for open water.">
+        <defs>
+          <linearGradient id="pondFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3FD9A4" stop-opacity=".26"></stop>
+            <stop offset="100%" stop-color="#3FD9A4" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+
+        <!-- gridlines -->
+        <g>
+          <line class="grid-line" x1="52" y1="18"    x2="596" y2="18"></line>
+          <line class="grid-line" x1="52" y1="61.6"  x2="596" y2="61.6"></line>
+          <line class="grid-line" x1="52" y1="105.2" x2="596" y2="105.2"></line>
+          <line class="grid-line" x1="52" y1="148.8" x2="596" y2="148.8"></line>
+          <line class="grid-line" x1="52" y1="192.4" x2="596" y2="192.4"></line>
+          <text class="axis-txt" x="44" y="21"    text-anchor="end">0.25</text>
+          <text class="axis-txt" x="44" y="108.7" text-anchor="end">0.15</text>
+          <text class="axis-txt" x="44" y="196"   text-anchor="end">0.05</text>
+          <text class="axis-txt" x="16" y="152" text-anchor="middle" transform="rotate(-90 16 152)">REFLECTANCE</text>
+        </g>
+
+        <!-- curves -->
+        <path class="curve-fill" d="M 52.0 157.5 C 62.1 154.6, 92.3 137.9, 112.4 140.1 C 132.6 142.3, 152.7 173.5, 172.9 170.6 C 193.0 167.7, 213.2 139.4, 233.3 122.6 C 253.5 105.9, 273.6 81.9, 293.8 70.3 C 313.9 58.7, 334.1 56.5, 354.2 52.9 C 374.4 49.2, 394.5 50.0, 414.7 48.5 C 434.8 47.1, 455.0 23.1, 475.1 44.2 C 495.3 65.2, 515.4 148.1, 535.6 175.0 C 555.7 201.8, 585.9 200.4, 596.0 205.5 L 596.0 236.0 L 52.0 236.0 Z"></path>
+        <path class="curve curve-water" d="M 52.0 170.6 C 62.1 172.1, 92.3 175.0, 112.4 179.3 C 132.6 183.7, 152.7 192.4, 172.9 196.8 C 193.0 201.1, 213.2 202.6, 233.3 205.5 C 253.5 208.4, 273.6 212.0, 293.8 214.2 C 313.9 216.4, 334.1 217.5, 354.2 218.6 C 374.4 219.6, 394.5 219.6, 414.7 220.3 C 434.8 221.0, 455.0 221.5, 475.1 222.9 C 495.3 224.4, 515.4 227.6, 535.6 229.0 C 555.7 230.5, 585.9 231.2, 596.0 231.6"></path>
+        <path class="curve curve-pond" id="pondCurve" d="M 52.0 157.5 C 62.1 154.6, 92.3 137.9, 112.4 140.1 C 132.6 142.3, 152.7 173.5, 172.9 170.6 C 193.0 167.7, 213.2 139.4, 233.3 122.6 C 253.5 105.9, 273.6 81.9, 293.8 70.3 C 313.9 58.7, 334.1 56.5, 354.2 52.9 C 374.4 49.2, 394.5 50.0, 414.7 48.5 C 434.8 47.1, 455.0 23.1, 475.1 44.2 C 495.3 65.2, 515.4 148.1, 535.6 175.0 C 555.7 201.8, 585.9 200.4, 596.0 205.5"></path>
+
+        <!-- baseline -->
+        <line class="axis-line" x1="52" y1="236" x2="596" y2="236"></line>
+
+        <!-- interactive band groups -->
+        <g data-band="B02" tabindex="0" role="button" aria-label="Band B02, 490 nanometres, blue">
+          <line class="guide" x1="52" y1="18" x2="52" y2="236"></line>
+          <circle class="dot" cx="52" cy="157.5" r="3.2"></circle>
+          <text class="band-lab" x="52" y="252" text-anchor="middle">B02</text>
+          <rect class="hit" x="34" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B03" tabindex="0" role="button" aria-label="Band B03, 560 nanometres, green">
+          <line class="guide" x1="112.4" y1="18" x2="112.4" y2="236"></line>
+          <circle class="dot" cx="112.4" cy="140.1" r="3.2"></circle>
+          <text class="band-lab" x="112.4" y="252" text-anchor="middle">B03</text>
+          <rect class="hit" x="92" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B04" tabindex="0" role="button" aria-label="Band B04, 665 nanometres, red">
+          <line class="guide" x1="172.9" y1="18" x2="172.9" y2="236"></line>
+          <circle class="dot" cx="172.9" cy="170.6" r="3.2"></circle>
+          <text class="band-lab" x="172.9" y="252" text-anchor="middle">B04</text>
+          <rect class="hit" x="153" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B05" tabindex="0" role="button" aria-label="Band B05, 705 nanometres, red edge 1">
+          <line class="guide" x1="233.3" y1="18" x2="233.3" y2="236"></line>
+          <circle class="dot" cx="233.3" cy="122.6" r="3.2"></circle>
+          <text class="band-lab" x="233.3" y="252" text-anchor="middle">B05</text>
+          <rect class="hit" x="213" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B06" tabindex="0" role="button" aria-label="Band B06, 740 nanometres, red edge 2">
+          <line class="guide" x1="293.8" y1="18" x2="293.8" y2="236"></line>
+          <circle class="dot" cx="293.8" cy="70.3" r="3.2"></circle>
+          <text class="band-lab" x="293.8" y="252" text-anchor="middle">B06</text>
+          <rect class="hit" x="274" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B07" tabindex="0" role="button" aria-label="Band B07, 783 nanometres, red edge 3, Shrimp Index numerator">
+          <line class="guide" x1="354.2" y1="18" x2="354.2" y2="236"></line>
+          <circle class="dot" cx="354.2" cy="52.9" r="3.2"></circle>
+          <text class="band-lab key" x="354.2" y="252" text-anchor="middle">B07</text>
+          <rect class="hit" x="334" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B08" tabindex="0" role="button" aria-label="Band B08, 842 nanometres, near infrared">
+          <line class="guide" x1="414.7" y1="18" x2="414.7" y2="236"></line>
+          <circle class="dot" cx="414.7" cy="48.5" r="3.2"></circle>
+          <text class="band-lab" x="414.7" y="252" text-anchor="middle">B08</text>
+          <rect class="hit" x="395" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B8A" tabindex="0" role="button" aria-label="Band B8A, 865 nanometres, narrow near infrared">
+          <line class="guide" x1="475.1" y1="18" x2="475.1" y2="236"></line>
+          <circle class="dot" cx="475.1" cy="44.2" r="3.2"></circle>
+          <text class="band-lab" x="475.1" y="252" text-anchor="middle">B8A</text>
+          <rect class="hit" x="455" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B11" tabindex="0" role="button" aria-label="Band B11, 1610 nanometres, shortwave infrared, Shrimp Index denominator">
+          <line class="guide" x1="535.6" y1="18" x2="535.6" y2="236"></line>
+          <circle class="dot" cx="535.6" cy="175" r="3.2"></circle>
+          <text class="band-lab key" x="535.6" y="252" text-anchor="middle">B11</text>
+          <rect class="hit" x="515" y="12" width="40" height="248"></rect>
+        </g>
+        <g data-band="B12" tabindex="0" role="button" aria-label="Band B12, 2190 nanometres, shortwave infrared">
+          <line class="guide" x1="596" y1="18" x2="596" y2="236"></line>
+          <circle class="dot" cx="596" cy="205.5" r="3.2"></circle>
+          <text class="band-lab" x="596" y="252" text-anchor="middle">B12</text>
+          <rect class="hit" x="576" y="12" width="40" height="248"></rect>
+        </g>
+
+        <text class="axis-txt" x="52"  y="270">490 nm</text>
+        <text class="axis-txt" x="596" y="270" text-anchor="end">2190 nm</text>
+        <text class="axis-txt" x="324" y="288" text-anchor="middle">SENTINEL-2 BANDS · CENTRE WAVELENGTH</text>
+      </svg>
+
+      <div class="readout" data-readout>
+        <b>B07 / B11</b> — the two bands the <span class="nm">Shrimp Index</span> is built from.<br>
+        Hover or tab through a band to see what it measures.
+      </div>
+
+      <div class="legend">
+        <span><i style="background:#3FD9A4"></i>Shrimp pond, mid-culture</span>
+        <span><i style="background:#567C86"></i>Open water body</span>
+      </div>
+    </figure>
+
+  </div>
+</section>
+
+<!-- ================= STAT STRIP ================= -->
+<section class="strip">
+  <div class="wrap" style="padding-inline:0">
+    <div class="strip-in">
+      <div class="stat"><span class="n">94%</span><span class="l">mIoU · pond boundary segmentation, four regions</span></div>
+      <div class="stat"><span class="n">30 min → 2 min</span><span class="l">manual digitisation replaced per tile</span></div>
+      <div class="stat"><span class="n">80%</span><span class="l">overall accuracy · rule-based risk alerts</span></div>
+      <div class="stat"><span class="n">R² 0.80</span><span class="l">satellite reflectance vs. in-situ water quality</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORK ================= -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head rv">
+      <p class="eyebrow">Selected work · Captain Fresh</p>
+      <h2 class="section-title">Three systems, one pond.</h2>
+      <p class="lede">
+        Find the pond, measure what is happening inside it, and warn the farmer before it goes
+        wrong. Each project is a stage of the same problem.
+      </p>
+    </div>
+
+    <div class="work">
+
+      <a class="card rv" href="projects/aqua-boundary.html">
+        <div class="card-body">
+          <p class="card-tag">Detection · production pipeline</p>
+          <h3>Aqua-Boundary</h3>
+          <p>
+            A distributed geospatial ML pipeline that finds aquaculture ponds in satellite imagery
+            and emits production-ready GeoJSON. YOLOv8 proposes pond regions, SAM ViT-H refines
+            them into masks, and the masks are vectorised — orchestrated as separate Temporal
+            activities so each model stage scales on its own.
+          </p>
+          <div class="meta">
+            <span><b>Stack</b> &nbsp;YOLOv8 · SAM ViT-H · Temporal · FastAPI · Docker · S3</span>
+            <span><b>Region</b> &nbsp;4 districts, Andhra Pradesh</span>
+            <span><b>Result</b> &nbsp;94% mIoU · 3 tiles in 2 minutes</span>
+          </div>
+          <span class="card-cta">Read the case study</span>
+        </div>
+        <div class="card-fig">
+          <img src="assets/img/bd-compare-1.jpg" alt="Visual comparison of pond boundary outputs from six segmentation models" loading="lazy" width="1600" height="875">
+        </div>
+      </a>
+
+      <a class="card rv" href="projects/shrimp-index.html">
+        <div class="card-body">
+          <p class="card-tag">Research · spectral index</p>
+          <h3>Shrimp Index (SI)</h3>
+          <p>
+            Remote sensing had no index for shrimp farming, so I derived one. Multi-temporal and
+            mono-temporal spectral analysis across farms showed a red-edge peak driven by
+            phytoplankton and a strong NIR response from feed and biomass — a signature no other
+            water body shares.
+          </p>
+          <div class="meta">
+            <span><b>Method</b> &nbsp;Pond-level spectral analysis · Sentinel-2 L2A</span>
+            <span><b>Index</b> &nbsp;SI = (RE3 − SWIR) / (RE3 + SWIR)</span>
+            <span><b>Signal</b> &nbsp;Rising trend = healthy · falling = distressed</span>
+          </div>
+          <span class="card-cta">Read the case study</span>
+        </div>
+        <div class="card-fig">
+          <img src="assets/img/si-signature.jpg" alt="Spectral signature plot of shrimp ponds across wavelengths" loading="lazy" width="884" height="904">
+        </div>
+      </a>
+
+      <a class="card rv" href="projects/siras-ewis.html">
+        <div class="card-body">
+          <p class="card-tag">Decision system · early warning</p>
+          <h3>SIRAS / EWIS</h3>
+          <p>
+            Farmers usually catch disease and water-quality problems only once they are severe. This
+            system watches the rate of change in each pond's spectral signature over time, classifies
+            pond state, and cross-checks sampled average body weight against the standard growth
+            curve to raise an alert while there is still time to act.
+          </p>
+          <div class="meta">
+            <span><b>Method</b> &nbsp;Temporal spectral trends + in-situ ABW · rule-based</span>
+            <span><b>Output</b> &nbsp;PCS / PHS scores, combined alert label, DOC</span>
+            <span><b>Result</b> &nbsp;80% overall accuracy across regions</span>
+          </div>
+          <span class="card-cta">Read the case study</span>
+        </div>
+        <div class="card-fig">
+          <img src="assets/img/ewis-maps.jpg" alt="Sample risk alert maps produced by the early warning system" loading="lazy" width="1600" height="747">
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= EARLIER WORK + RESEARCH ================= -->
+<section class="section" id="research">
+  <div class="wrap">
+    <div class="section-head rv">
+      <p class="eyebrow">Research &amp; earlier projects</p>
+      <h2 class="section-title">Before the ponds.</h2>
+    </div>
+
+    <div class="rows rv">
+
+      <a class="row" href="https://doi.org/10.58825/jog.2023.17.1.75" target="_blank" rel="noopener">
+        <span class="yr">Apr 2023</span>
+        <div>
+          <h4>Area Estimation of Mango and Coconut Crops using Machine Learning</h4>
+          <p>
+            Published in the Journal of Geomatics. U-Net with a ResNet34 backbone and Random Forest
+            applied to Sentinel-2 imagery over Hesaraghatta Hobli, Bengaluru Urban District. The U-Net
+            using NIR, Red and Green bands reached 84% accuracy, outperforming Random Forest and
+            conventional methods, and transferred to new study areas with encouraging results.
+          </p>
+          <p class="tools">U-Net · ResNet34 · Random Forest · Sentinel-2 · Google Earth Engine</p>
+        </div>
+        <span class="ext">Paper ↗</span>
+      </a>
+
+      <div class="row">
+        <span class="yr">2022</span>
+        <div>
+          <h4>Production Estimation of Horticulture Crops using U-Net</h4>
+          <p>
+            Acreage and production estimation for mango and coconut from Sentinel-2 imagery, run
+            across GEE and Colab. Demonstrated transfer learning by applying the trained CNN to
+            different study areas.
+          </p>
+          <p class="tools">Python · GEE · TensorFlow · scikit-learn · Rasterio · GeoPandas</p>
+        </div>
+        <span class="ext">M.Tech</span>
+      </div>
+
+      <div class="row">
+        <span class="yr">2022</span>
+        <div>
+          <h4>LULC Classification using Deep Neural Networks</h4>
+          <p>
+            Random Forest and DNN models trained to classify diverse land cover features across
+            Mandya District.
+          </p>
+          <p class="tools">Python · GEE · TensorFlow · scikit-learn · GeoPandas</p>
+        </div>
+        <span class="ext">M.Tech</span>
+      </div>
+
+      <div class="row">
+        <span class="yr">2019</span>
+        <div>
+          <h4>Soil Stabilization using Class ‘C’ Fly Ash and Bacteria</h4>
+          <p>
+            Fly ash combined with soil bacteria, evaluated over different curing periods to measure
+            the effect on the soil's bearing capacity.
+          </p>
+          <p class="tools">Geotechnical testing · B.Tech thesis</p>
+        </div>
+        <span class="ext">B.Tech</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIENCE ================= -->
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="section-head rv">
+      <p class="eyebrow">Experience</p>
+      <h2 class="section-title">Where I've worked.</h2>
+    </div>
+
+    <div class="tl rv">
+
+      <div class="tl-item">
+        <div class="tl-when"><b>Aug 2022 — Present</b>Bengaluru, KA</div>
+        <div>
+          <h3 class="tl-role">Data Scientist</h3>
+          <p class="tl-org">Captain Fresh</p>
+          <ul>
+            <li>Built a scalable data extraction pipeline with Xarray and Dask for MSI Level-2A imagery from the AWS Open Data Registry and Microsoft Planetary Computer.</li>
+            <li>Implemented semantic segmentation models — U-Net, DeepLabv3+, U²-Net and SAM with ResNet and ViT backbones — to delineate aquaculture pond boundaries, reaching 94% mIoU across four geographically distinct regions.</li>
+            <li>Fine-tuned YOLOv8 on high-resolution SAR imagery for micro-target detection.</li>
+            <li>Correlated satellite-derived surface reflectance with in-situ water quality parameters using regression, averaging R² of 0.80.</li>
+            <li>Derived the Shrimp Index (SI) and a Pond Activity Indicator (PAI) for classifying pond status from spectral signatures.</li>
+            <li>Developed a rule-based, remote-sensing-driven early warning system for shrimp ponds.</li>
+            <li>Built a DVC pipeline for versioning code, data and models, and containerised the stack with Docker for deployment.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-when"><b>Sep 2021 — Nov 2021</b>Bengaluru, KA</div>
+        <div>
+          <h3 class="tl-role">Geoinformatics Intern</h3>
+          <p class="tl-org">KSRSAC</p>
+          <ul>
+            <li>Visual image interpretation and feature delineation from satellite imagery following the NRSC LULC schema.</li>
+            <li>Metadata-based filtering of image collections and interpretation of multispectral, thermal and SAR data in Google Earth Engine.</li>
+            <li>Ground truthing and supervised classification across band combinations, using QGIS, ArcGIS and ERDAS Imagine.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-when"><b>Apr 2019 — Mar 2020</b>Bengaluru, KA</div>
+        <div>
+          <h3 class="tl-role">Site Engineer — Revit Architecture, CAD</h3>
+          <p class="tl-org">Civil engineering</p>
+          <ul>
+            <li>Developed floor plans and detailed structural drawings against project requirements and site constraints.</li>
+            <li>Executed on-site layout activities including centreline marking and alignment verification.</li>
+            <li>Translated design drawings into practical site execution workflows.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about">
+  <div class="wrap about-grid">
+
+    <div class="about rv">
+      <p class="eyebrow">About</p>
+      <h2 class="section-title">Bridging geospatial analytics and ecological monitoring.</h2>
+      <p>
+        I am a data scientist with a strong background in remote sensing, GIS, AI/ML and geospatial
+        data analytics. I hold an M.Tech in Geoinformatics — using location intelligence in
+        conjunction with informatics to solve problems related to geography.
+      </p>
+      <p>
+        I have <strong>3 years 11 months</strong> of intersecting work experience across remote
+        sensing and AI, and I specialise in developing geospatial, data-driven solutions powered by
+        GeoAI.
+      </p>
+      <p>
+        Through my research I aim to bridge the gap between geospatial data analytics and ecological
+        applications for monitoring sustainability. GATE 2024 — All India Rank 355.
+      </p>
+    </div>
+
+    <div class="rv">
+      <div class="spec">
+        <div class="spec-row">
+          <div class="spec-k">Focus</div>
+          <div class="spec-v">Geospatial ML · remote sensing · deep learning · data engineering</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Languages</div>
+          <div class="spec-v"><div class="chips"><span class="chip">Python</span><span class="chip">JavaScript (GEE)</span></div></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Geospatial</div>
+          <div class="spec-v"><div class="chips"><span class="chip">Rasterio</span><span class="chip">GeoPandas</span><span class="chip">GDAL</span><span class="chip">Xarray</span><span class="chip">Dask</span><span class="chip">QGIS</span><span class="chip">ArcGIS</span><span class="chip">Google Earth Engine</span></div></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">ML / DL</div>
+          <div class="spec-v"><div class="chips"><span class="chip">PyTorch</span><span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">scikit-learn</span><span class="chip">Hugging Face</span><span class="chip">YOLOv8</span><span class="chip">SAM</span><span class="chip">U-Net</span><span class="chip">DeepLabv3+</span></div></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Systems</div>
+          <div class="spec-v"><div class="chips"><span class="chip">Temporal</span><span class="chip">FastAPI</span><span class="chip">Docker</span><span class="chip">DVC</span><span class="chip">AWS S3</span><span class="chip">Git</span><span class="chip">LangChain</span><span class="chip">LangGraph</span></div></div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Education</div>
+          <div class="spec-v">
+            M.Tech, Geoinformatics (Remote Sensing &amp; GIS) — KSRSAC, VTU · 9.23 CGPA · 2022<br>
+            B.Tech, Civil Engineering — HKBK College of Engineering, VTU · 8.34 CGPA · 2019
+          </div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Sensors</div>
+          <div class="spec-v">Sentinel-2 MSI · Sentinel-1 SAR · high-resolution optical</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section" id="contact" style="border-bottom:0">
+  <div class="wrap contact-grid">
+    <div class="rv">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Open to geospatial&nbsp;ML work.</h2>
+      <p class="lede">
+        If you are working on earth observation, agriculture or aquaculture — or you have imagery and
+        a question you cannot answer manually — I would like to hear about it.
+      </p>
+    </div>
+
+    <div class="links rv">
+      <a class="link" href="mailto:zubahme97@gmail.com"><span>zubahme97@gmail.com</span><span>Email</span></a>
+      <a class="link" href="tel:+917406191691"><span>+91 74061 91691</span><span>Phone</span></a>
+      <a class="link" href="http://www.linkedin.com/in/zubair-ahmed-106103173" target="_blank" rel="noopener"><span>zubair-ahmed-106103173</span><span>LinkedIn ↗</span></a>
+      <a class="link" href="https://github.com/zubair9703" target="_blank" rel="noopener"><span>github.com/zubair9703</span><span>GitHub ↗</span></a>
+      <a class="link" href="https://medium.com/@zubahme97" target="_blank" rel="noopener"><span>@zubahme97</span><span>Medium ↗</span></a>
+      <a class="link" href="assets/Zubair_Ahmed_Resume.pdf" download><span>Zubair_Ahmed_Resume.pdf</span><span>CV ↓</span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span>Curves plotted from Sentinel-2 L2A surface reflectance</span>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

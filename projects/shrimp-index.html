@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shrimp Index (SI) — Zubair Ahmed</title>
+<meta name="description" content="A species-specific spectral index for shrimp aquaculture, derived from multi-temporal and mono-temporal analysis of pond spectral signatures in Sentinel-2 imagery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="../index.html">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">Case study 02 · Spectral research</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">All work</a>
+    <p class="eyebrow">Research · spectral index</p>
+    <h1>Shrimp Index (SI)</h1>
+    <p class="lede">
+      Remote sensing had no index for shrimp farming. This work derives one — a number that
+      quantifies what is happening inside a shrimp pond, from orbit.
+    </p>
+
+    <dl class="capture">
+      <div><dt>Role</dt><dd>Spectral analysis<br>&amp; index derivation</dd></div>
+      <div><dt>Sensor</dt><dd>Sentinel-2 MSI L2A<br>12 bands · ~5-day revisit</dd></div>
+      <div><dt>Method</dt><dd>Multi-temporal &amp;<br>mono-temporal analysis</dd></div>
+      <div><dt>Bands</dt><dd>RE3 (783 nm)<br>SWIR (1610 nm)</dd></div>
+      <div><dt>Ground truth</dt><dd>Field reports<br>via WhatsApp &amp; Metabase</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+
+      <h2>The problem</h2>
+      <p>
+        There is no remote sensing index related to shrimp farming. Without one, satellite imagery
+        cannot really be used to monitor shrimp ponds — you can see the water, but you cannot
+        measure the culture. The proposal was a <strong>Shrimp Index (SI)</strong> that captures the
+        distinctive spectral response of shrimp ponds and supports monitoring and management at
+        scale.
+      </p>
+
+      <h3>My role</h3>
+      <p>
+        Studying the spectral signatures of aquaculture ponds across different geographic regions,
+        and comparing them against other water bodies.
+      </p>
+
+      <h3>Research objectives</h3>
+      <ul>
+        <li><strong>Multi-temporal</strong> spectral analysis at pond level, to understand the phenology of different ponds.</li>
+        <li><strong>Mono-temporal</strong> spectral response analysis of ponds at different phenological stages, to understand response across wavelengths of the electromagnetic spectrum.</li>
+      </ul>
+
+      <h2>Data</h2>
+      <table class="dtable">
+        <thead><tr><th>Source</th><th>What it gives</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Sentinel-2<br>AWS &amp; Planetary Computer</td>
+            <td>Imagery across 12 spectral bands at roughly a five-day revisit, enabling continuous observation of the phenological and environmental changes associated with shrimp farming.</td>
+          </tr>
+          <tr>
+            <td>Ground truth<br>WhatsApp &amp; Metabase</td>
+            <td>Field information from farms, used to validate and improve the insights drawn from geospatial analysis.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/si-signature.jpg" alt="Sample spectral signature plot of shrimp ponds across Sentinel-2 bands" loading="lazy" width="884" height="904">
+      </div>
+      <figcaption><b>Fig. 01</b><span>Sample spectral signature of shrimp ponds — the curve that the index is derived from.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>What the signatures showed</h2>
+      <p>
+        Detailed multi-temporal and mono-temporal analysis was carried out at pond level across
+        several farms, alongside other water bodies. Three findings held consistently:
+      </p>
+      <ul>
+        <li>A significant increase in reflectance in the <strong>Red Edge</strong> band across all ponds during culture — <strong>evidence of phytoplankton activity</strong>.</li>
+        <li>Following the red edge response, strong reflectance in the <strong>NIR</strong> band. In water bodies, higher NIR reflectance indicates increased suspended material; in an aquaculture pond that is a strong indicator of shrimp and feed.</li>
+        <li>The spectral responses of water bodies other than shrimp ponds were <strong>completely different</strong> — which is what makes a species-specific index possible in the first place.</li>
+      </ul>
+      <p>
+        Further plots and analysis:
+        <a href="https://docs.google.com/presentation/d/1XFyJf1wwKihEZkl-X2_E7rx4NkRXwo0aoQjmxc4f6nk/edit?usp=sharing" target="_blank" rel="noopener">spectral analysis deck ↗</a>
+      </p>
+
+      <h2>The index</h2>
+      <p>
+        SI is a numerical value that quantifies the properties of ponds under shrimp culture. It is
+        used to measure shrimp health and other dynamics of the culture pond using remotely sensed
+        data.
+      </p>
+    </div>
+
+    <div class="callout">
+      <span class="k">Shrimp Index</span>
+      <span class="formula">SI = (RE3 − SWIR) / (RE3 + SWIR)</span>
+      <p>
+        RE3 is reflectance in the Red Edge band; SWIR is reflectance in the shortwave infrared band.
+      </p>
+    </div>
+
+    <div class="prose">
+      <table class="dtable">
+        <thead><tr><th>Value</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>High SI</td><td>Healthy shrimp, with active photosynthesis aerating the pond.</td></tr>
+          <tr><td>Low SI</td><td>Distressed shrimp, or no culture in the pond at all.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>SI over time</h2>
+      <p>
+        The value on its own matters less than its trajectory. Tracked across a culture cycle, the
+        index separates healthy ponds from failing ones well before the difference is visible on the
+        ground.
+      </p>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/si-unhealthy-1.jpg" alt="Time series plot of Shrimp Index for a diseased pond, showing a downward trend" loading="lazy" width="1600" height="838">
+      </div>
+      <figcaption><b>Fig. 02</b><span>SI response for a diseased / unhealthy pond — a sustained downward trend.</span></figcaption>
+    </figure>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/si-unhealthy-2.jpg" alt="Second time series plot of Shrimp Index for an unhealthy pond" loading="lazy" width="1600" height="549">
+      </div>
+      <figcaption><b>Fig. 03</b><span>A second unhealthy pond, same pattern, different farm.</span></figcaption>
+    </figure>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/si-healthy.jpg" alt="Time series plot of Shrimp Index for a healthy pond, showing an upward trend" loading="lazy" width="1600" height="838">
+      </div>
+      <figcaption><b>Fig. 04</b><span>SI response for a healthy pond — the index climbs with the culture.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Conclusion</h2>
+      <p>
+        The SI pattern was studied across different geographic regions. It showed a downward trend in
+        the majority of diseased or unhealthy ponds, and an upward trend in healthy ponds — a
+        consistent enough signal to build an alert system on, which became
+        <a href="siras-ewis.html">SIRAS / EWIS</a>.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap p-next">
+  <a href="aqua-boundary.html">← Aqua-Boundary</a>
+  <a href="siras-ewis.html">Next: SIRAS / EWIS →</a>
+</div>
+
+</main>
+
+<footer class="wrap foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span><a href="mailto:zubahme97@gmail.com" style="color:inherit">zubahme97@gmail.com</a></span>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
