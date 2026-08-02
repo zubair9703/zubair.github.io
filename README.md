@@ -7,17 +7,20 @@ so it can be dropped straight onto GitHub Pages.
 
 ```
 .
-├── index.html                  # home: hero, work, research, experience, about, contact
+├── index.html                      # home: hero, about, services, portfolio grid, featured, contact
 ├── projects/
-│   ├── aqua-boundary.html      # case study 01 — pond boundary detection
-│   ├── shrimp-index.html       # case study 02 — spectral index research
-│   └── siras-ewis.html         # case study 03 — early warning system
+│   ├── aqua-boundary.html          # pond boundary detection
+│   ├── aerator-detection.html      # aerator detection & on/off classification
+│   ├── water-quality.html          # water quality estimation
+│   ├── shrimp-index.html           # spectral index research
+│   └── siras-ewis.html             # early warning system
 ├── assets/
-│   ├── css/style.css
-│   ├── js/main.js
-│   ├── img/                    # figures pulled from the project docs
+│   ├── css/alt.css                 # homepage
+│   ├── css/project.css             # case study pages
+│   ├── js/alt.js                   # portfolio filters + reveal
+│   ├── img/                        # figures from the project docs
 │   └── Zubair_Ahmed_Resume.pdf
-├── .nojekyll                   # stops GitHub Pages running Jekyll on the files
+├── .nojekyll                       # stops GitHub Pages running Jekyll on the files
 └── README.md
 ```
 
@@ -58,11 +61,13 @@ Then set the domain under Settings → Pages and tick **Enforce HTTPS** once the
 
 ## Editing notes
 
-- **Colours and type** are all CSS custom properties at the top of `assets/css/style.css`.
-  Change `--nir` to reskin the accent everywhere.
-- **The hero chart** is inline SVG in `index.html`. The per-band text that appears when you hover
-  is the `NOTES` object at the top of `assets/js/main.js`.
-- **Adding a project**: copy one of the files in `projects/`, swap the content, then add a matching
-  `<a class="card">` block to the `work` section in `index.html`.
-- **Figures** live in `assets/img/`. They were extracted from the source `.docx` files and
-  resized to 1600 px on the long edge.
+- **Colours and type** are CSS custom properties at the top of `assets/css/alt.css` and
+  `assets/css/project.css`. Change `--accent` in both to reskin the site.
+- **Portfolio filters**: each tile carries `data-cats="..."`. Add a category by adding a
+  `<button class="filter" data-filter="your-cat">` and tagging tiles with the same string.
+- **Adding a project**: copy a file from `projects/`, swap the content, then add a matching
+  `<a class="tile">` to the grid in `index.html`.
+- **Figures** live in `assets/img/`, extracted from the source `.docx` files and resized to
+  1600 px on the long edge.
+- **The hero background** is the Sentinel-2 false colour composite, set in `alt.css` under
+  `.hero::before`. Replace `assets/img/fcc-delta-light.jpg` to swap the scene.

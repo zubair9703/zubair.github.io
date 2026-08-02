@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Water Quality Estimation — Zubair Ahmed</title>
+<meta name="description" content="A machine learning pipeline that turns Sentinel-2 surface reflectance into pond-level water quality maps, replacing sparse manual sampling with continuous spatial coverage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/project.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="../index.html">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">Case study · Water quality</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#portfolio">Portfolio</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#portfolio">All work</a>
+    <p class="eyebrow">Regression · water quality</p>
+    <h1>Water Quality Estimation from Sentinel-2</h1>
+    <p class="lede">
+      A machine learning pipeline that turns Sentinel-2 surface reflectance into pond-level water
+      quality maps, replacing sparse manual sampling with continuous spatial coverage.
+    </p>
+
+    <dl class="capture">
+      <div><dt>Role</dt><dd>Data Scientist —<br>remote sensing &amp; modelling lead</dd></div>
+      <div><dt>Team</dt><dd>Captain Fresh × FWI<br>FWI ran field sampling</dd></div>
+      <div><dt>Data</dt><dd>100 matchup samples<br>Sentinel-2 MSI L2A</dd></div>
+      <div><dt>Models</dt><dd>6 XGBoost regressors<br>one per parameter</dd></div>
+      <div><dt>Result</dt><dd>4 of 6 deployed<br>R² up to 0.85</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+
+      <h2>The problem</h2>
+      <p>
+        Water quality is the entire operating environment in aquaculture, and it drives growth,
+        survival and feed conversion directly. A channel catfish density study showed feed conversion
+        ratio degrading from 1.3 to 2.5 and net profit collapsing by <strong>87%</strong> — from
+        $2,933 to $389 per hectare — as water quality deteriorated.
+      </p>
+      <p>
+        But the standard way to measure it is in-situ sampling: accurate, yet slow, labour-intensive,
+        invasive to the stock, and limited to isolated point observations. A farm operator gets a
+        handful of numbers from a handful of ponds on a handful of days.
+      </p>
+      <p>
+        Remote sensing offers the opposite trade-off — continuous coverage in space and time, with no
+        physical contact — by measuring how dissolved and suspended constituents absorb and scatter
+        sunlight. The open question was how far that reaches. Optically active parameters like
+        chlorophyll-a interact with light directly, but the parameters farmers care most about,
+        notably dissolved oxygen, are optically inactive and can only be inferred indirectly, if at
+        all.
+      </p>
+
+      <h3>My role</h3>
+      <p>
+        Data scientist and modelling lead. A joint initiative between Captain Fresh and FWI: FWI ran
+        the field sampling, Captain Fresh set the sampling protocol and built the models.
+      </p>
+
+      <h2>Data</h2>
+      <table class="dtable">
+        <thead><tr><th>Source</th><th>What it gives</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Sentinel-2<br>AWS &amp; Planetary Computer</td>
+            <td>Imagery across 12 spectral bands at roughly a five-day revisit, enabling continuous observation of the phenological and environmental changes associated with shrimp farming.</td>
+          </tr>
+          <tr>
+            <td>Ground truth<br>In-situ field sampling</td>
+            <td>All water quality parameters were collected physically in the field by the FWI team, with sampling dates and times specified in advance to align with satellite overpasses.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/wqp-workflow.jpg" alt="End-to-end methodology workflow for the water quality estimation pipeline" loading="lazy" width="1548" height="980">
+      </div>
+      <figcaption><b>Fig. 01</b><span>End-to-end methodology, from scene acquisition and masking through feature extraction to per-parameter modelling.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>What I built</h2>
+      <ul>
+        <li>A matchup dataset of <strong>100 in-situ samples</strong> paired to contemporaneous Sentinel-2 surface reflectance.</li>
+        <li>A preprocessing pipeline over Sentinel-2 MSI Level-2A from the Microsoft Planetary Computer: cloud and shadow masking, then computation of water-relevant spectral indices (NDWI, MNDWI, NDCI, NDTI).</li>
+        <li>Six per-parameter <strong>XGBoost regressors</strong> — dissolved oxygen, pH, ammonia, chlorophyll-a, phycocyanin and temperature — each with its own selected band and index feature set.</li>
+        <li>An <strong>R² ≥ 0.7 acceptance gate</strong>: only models clearing it are applied to the full scene to generate wall-to-wall water quality maps.</li>
+        <li>Deployment of the trained models, containerised with Docker.</li>
+      </ul>
+
+      <h2>How it works</h2>
+      <p>
+        <strong>Input:</strong> Sentinel-2 MSI L2A scenes via the Planetary Computer STAC API, plus
+        geolocated in-situ samples. <strong>Output:</strong> per-parameter raster maps of predicted
+        water quality across the scene.
+      </p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step"><em>Stage 01</em><span>Fetch L2A scenes contemporaneous with each sampling event</span></div>
+      <div class="flow-step"><em>Stage 02</em><span>Mask cloud and cloud shadow</span></div>
+      <div class="flow-step"><em>Stage 03</em><span>Compute NDWI, MNDWI, NDCI, NDTI alongside raw band reflectance</span></div>
+      <div class="flow-step"><em>Stage 04</em><span>Extract values at sampling locations; join to in-situ measurements</span></div>
+      <div class="flow-step"><em>Stage 05</em><span>Train and validate a per-parameter XGBoost model</span></div>
+      <div class="flow-step"><em>Stage 06</em><span>Gate on R² ≥ 0.7, then apply across the full scene</span></div>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount plate-pair">
+        <img src="../assets/img/wqp-pred-1.jpg" alt="Predicted water quality map output over a pond cluster" loading="lazy" width="381" height="540">
+        <img src="../assets/img/wqp-pred-2.jpg" alt="Second predicted water quality map output" loading="lazy" width="381" height="540">
+      </div>
+      <figcaption><b>Fig. 02</b><span>Sample model predictions — wall-to-wall parameter maps in place of isolated point samples.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The hardest problem: dissolved oxygen</h2>
+      <p>
+        <strong>Symptom.</strong> DO — the single most operationally important parameter, since it
+        governs respiration for everything in the pond — was the one model that failed. R² = 0.42,
+        well under the deployment gate, while ammonia reached 0.85 and chlorophyll-a 0.76.
+      </p>
+      <p>
+        <strong>Root cause.</strong> DO is optically inactive. It does not absorb or scatter light in
+        a way a multispectral sensor can detect, so there is no direct signal to learn from — only
+        correlations routed through parameters that <em>are</em> visible.
+      </p>
+      <p>
+        <strong>Investigation.</strong> I worked through DO's relationships with each of the other
+        measured parameters to see whether indirect inference could carry it:
+      </p>
+      <ul>
+        <li><strong>Temperature</strong> — inverse relationship. Warmer water holds less oxygen while simultaneously raising metabolic rate and therefore oxygen demand. A dual stressor, and directionally informative.</li>
+        <li><strong>pH</strong> — coupled through the diurnal algal cycle. Daytime photosynthesis consumes CO₂ and releases O₂, raising both pH and DO; night-time respiration reverses both.</li>
+        <li><strong>Chlorophyll-a</strong> — a direct proxy for phytoplankton biomass, and therefore for the amplitude of that daily oxygen swing.</li>
+        <li><strong>Ammonia and phycocyanin</strong> — correlated, but as toxicity indicators rather than oxygen predictors. I ruled both out as DO features: using a toxin proxy to infer DO conflates two distinct risks.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <span class="k">Conclusion</span>
+      <p>
+        Temperature, pH-driven diurnal dynamics and chlorophyll-a support <em>qualitative</em>
+        inference of DO regimes, but are insufficient for <em>quantitative</em> estimation. Accurate
+        DO requires in-situ measurement or site-specific calibrated models. I reported this as a
+        boundary of the method rather than tuning until the metric looked acceptable.
+      </p>
+    </div>
+
+    <div class="prose">
+      <h2>Results</h2>
+      <table class="dtable">
+        <thead><tr><th>Parameter</th><th>R²</th><th>Deployed</th></tr></thead>
+        <tbody>
+          <tr><td>Ammonia</td><td class="num">0.85</td><td class="num pass">Yes</td></tr>
+          <tr><td>Chlorophyll-a</td><td class="num">0.76</td><td class="num pass">Yes</td></tr>
+          <tr><td>pH</td><td class="num">0.75</td><td class="num pass">Yes</td></tr>
+          <tr><td>Phycocyanin</td><td class="num">0.73</td><td class="num pass">Yes</td></tr>
+          <tr><td>Temperature</td><td class="num">0.68</td><td class="num fail">No</td></tr>
+          <tr><td>Dissolved oxygen</td><td class="num">0.42</td><td class="num fail">No</td></tr>
+        </tbody>
+      </table>
+
+      <ul>
+        <li>Four of six parameters cleared the deployment threshold from only <strong>100 matchup samples</strong>.</li>
+        <li>Optically active parameters showed pronounced spectral response and proved well suited to multispectral estimation; the optically inactive one did not.</li>
+        <li><strong>Feature-importance finding:</strong> red-edge and NIR bands were selected repeatedly across parameters, consistent with their sensitivity to phytoplankton biomass, organic matter and turbidity. SWIR bands contributed information on moisture content and dissolved material.</li>
+        <li>Established a validated proof-of-concept for scalable spaceborne monitoring, with a path toward real-time water quality risk detection and site-level management.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap p-next">
+  <a href="aerator-detection.html">← Aerator Detection</a>
+  <a href="shrimp-index.html">Next: Shrimp Index (SI) →</a>
+</div>
+
+</main>
+
+<footer class="foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span><a href="mailto:zubahme97@gmail.com" style="color:inherit">zubahme97@gmail.com</a></span>
+</footer>
+
+<script src="../assets/js/alt.js"></script>
+</body>
+</html>

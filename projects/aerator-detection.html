@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aerator Detection &amp; On/Off Classification — Zubair Ahmed</title>
+<meta name="description" content="A YOLOv8 detector tuned for micro-targets that locates individual pond aerators in satellite imagery and classifies whether each one is running, at 78% mAP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/project.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="../index.html">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">Case study · Object detection</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#portfolio">Portfolio</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#portfolio">All work</a>
+    <p class="eyebrow">Object detection · micro-targets</p>
+    <h1>Aerator Detection &amp; On/Off Classification</h1>
+    <p class="lede">
+      A YOLOv8 detector tuned for micro-targets that locates individual pond aerators and classifies
+      whether each one is running, at 78% mAP.
+    </p>
+
+    <dl class="capture">
+      <div><dt>Task</dt><dd>Detection +<br>state classification</dd></div>
+      <div><dt>Model</dt><dd>YOLOv8<br>micro-target tuned</dd></div>
+      <div><dt>Head</dt><dd>P3 — stride 8<br>highest spatial resolution</dd></div>
+      <div><dt>Data</dt><dd>Hand-annotated<br>satellite imagery</dd></div>
+      <div><dt>Result</dt><dd>78% mAP</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+
+      <h2>The problem</h2>
+      <p>
+        The task is to detect aerators in satellite imagery and classify each one as ON or OFF.
+        That is hard for three compounding reasons: aerators occupy only <strong>a few
+        pixels</strong>, they sit against low-contrast water with almost no edge to key on, and
+        varying surface reflections change their appearance from scene to scene. Both the detection
+        and the state classification suffer.
+      </p>
+      <p>
+        Aerator state matters operationally. Aeration is what keeps dissolved oxygen in a stocked
+        pond survivable, so knowing which units are running — across a whole farm cluster, without
+        visiting it — is a direct read on how the site is being managed.
+      </p>
+
+      <h2>What I built</h2>
+      <ul>
+        <li>A YOLOv8 detector specialised for <strong>micro-target detection</strong> that both localises aerators and assigns each one an on/off state, reaching <strong>78% mAP</strong>.</li>
+        <li>A detection architecture driven from the <strong>P3 head</strong> — the stride-8, highest-spatial-resolution output — since targets this small carry no usable signal at the coarser P4 and P5 scales.</li>
+        <li>An annotated satellite dataset built for training the model.</li>
+      </ul>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/aer-head.jpg" alt="Diagram of the YOLOv8 detection head configuration used for micro-target detection" loading="lazy" width="1600" height="507">
+      </div>
+      <figcaption><b>Fig. 01</b><span>Detection head configuration. Small targets are resolved at the finest stride available; the coarser pyramid levels contribute nothing at this object size.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3>Why the head choice is the whole problem</h3>
+      <p>
+        A standard detection pyramid distributes objects across scales — small objects to the fine
+        head, large objects to the coarse ones. An aerator at Sentinel-scale resolution is small
+        enough that by the time the feature map has been downsampled to P4 or P5, the target has been
+        pooled away entirely. Detection therefore has to be driven from the finest available stride,
+        and the rest of the architecture follows from that constraint rather than from a default
+        configuration.
+      </p>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount plate-pair">
+        <img src="../assets/img/aer-pred-1.jpg" alt="Model predictions showing detected aerators with on and off states" loading="lazy" width="1600" height="751">
+        <img src="../assets/img/aer-pred-2.jpg" alt="Second set of model predictions across a pond cluster" loading="lazy" width="1600" height="751">
+      </div>
+      <figcaption><b>Fig. 02</b><span>Sample model predictions — individual aerators localised and labelled with running state.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Results</h2>
+      <ul>
+        <li><strong>78% mAP</strong> on combined detection and on/off state classification.</li>
+        <li>Individual aerators resolved at a scale where they occupy only a handful of pixels.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap p-next">
+  <a href="aqua-boundary.html">← Aqua-Boundary</a>
+  <a href="water-quality.html">Next: Water Quality Estimation →</a>
+</div>
+
+</main>
+
+<footer class="foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span><a href="mailto:zubahme97@gmail.com" style="color:inherit">zubahme97@gmail.com</a></span>
+</footer>
+
+<script src="../assets/js/alt.js"></script>
+</body>
+</html>
