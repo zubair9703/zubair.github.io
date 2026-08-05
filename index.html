@@ -5,10 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zubair Ahmed — Geospatial Data Scientist</title>
 <meta name="description" content="Geospatial data scientist specialising in remote sensing, GIS and GeoAI. Pond boundary segmentation, aerator detection, water quality estimation, spectral index research and early warning systems.">
+<link rel="canonical" href="https://zubair9703.github.io/zubair.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zubair Ahmed">
+<meta property="og:title" content="Zubair Ahmed — Geospatial Data Scientist">
+<meta property="og:description" content="GeoAI systems that read land and water from satellite imagery — pond boundary segmentation, aerator detection, water quality estimation and spectral index research.">
+<meta property="og:url" content="https://zubair9703.github.io/zubair.github.io/">
+<meta property="og:image" content="https://zubair9703.github.io/zubair.github.io/assets/img/fcc-delta-light.jpg">
+<meta property="og:image:alt" content="Sentinel-2 false colour composite of the Krishna–Godavari delta">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0B2129">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/alt.css">
+<!-- the hero backdrop is the LCP element but lives in CSS, so the preload scanner
+     cannot find it until alt.css has parsed -->
+<link rel="preload" as="image" href="assets/img/fcc-delta-light.jpg" fetchpriority="high">
+<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 
@@ -64,7 +82,7 @@
           conjunction with informatics to solve problems related to geography.
         </p>
         <p>
-          I have <strong>3 years 11 months</strong> of intersecting work experience across remote
+          I have <strong>over 4 years</strong> of intersecting work experience across remote
           sensing and AI, and I specialise in developing geospatial, data-driven solutions powered by
           GeoAI.
         </p>
@@ -152,14 +170,17 @@
       <button class="filter" data-filter="deep-learning" aria-pressed="false">Deep Learning</button>
       <button class="filter" data-filter="remote-sensing" aria-pressed="false">Remote Sensing</button>
       <button class="filter" data-filter="spectral" aria-pressed="false">Spectral Analysis</button>
+      <button class="filter" data-filter="spatial-analysis" aria-pressed="false">Spatial Analysis</button>
       <button class="filter" data-filter="engineering" aria-pressed="false">Data Engineering</button>
       <button class="filter" data-filter="research" aria-pressed="false">Research</button>
     </div>
 
+    <p class="filter-status" role="status" aria-live="polite" data-filter-status></p>
+
     <div class="grid" data-grid>
 
       <a class="tile rv" href="projects/aqua-boundary.html" data-cats="deep-learning remote-sensing engineering">
-        <div class="tile-fig"><img src="assets/img/bd-compare-1.jpg" alt="Comparison of pond boundary segmentation outputs" loading="lazy"></div>
+        <div class="tile-fig"><img src="assets/img/bd-compare-1.jpg" alt="Comparison of pond boundary segmentation outputs" loading="lazy" width="1600" height="875"></div>
         <div class="tile-body">
           <p class="tile-cat">Deep Learning · Engineering</p>
           <h3>Aqua-Boundary</h3>
@@ -169,7 +190,7 @@
       </a>
 
       <a class="tile rv" href="projects/shrimp-index.html" data-cats="spectral remote-sensing research">
-        <div class="tile-fig"><img src="assets/img/si-signature.jpg" alt="Spectral signature of shrimp ponds" loading="lazy"></div>
+        <div class="tile-fig"><img src="assets/img/si-signature.jpg" alt="Spectral signature of shrimp ponds" loading="lazy" width="884" height="904"></div>
         <div class="tile-body">
           <p class="tile-cat">Spectral Analysis · Research</p>
           <h3>Shrimp Index (SI)</h3>
@@ -179,7 +200,7 @@
       </a>
 
       <a class="tile rv" href="projects/siras-ewis.html" data-cats="remote-sensing engineering research">
-        <div class="tile-fig"><img src="assets/img/ewis-maps.jpg" alt="Risk alert maps from the early warning system" loading="lazy"></div>
+        <div class="tile-fig"><img src="assets/img/ewis-maps.jpg" alt="Risk alert maps from the early warning system" loading="lazy" width="1600" height="747"></div>
         <div class="tile-body">
           <p class="tile-cat">Remote Sensing · Decision system</p>
           <h3>SIRAS / EWIS</h3>
@@ -189,7 +210,7 @@
       </a>
 
       <a class="tile rv" href="projects/aerator-detection.html" data-cats="deep-learning remote-sensing">
-        <div class="tile-fig"><img src="assets/img/aer-pred-1.jpg" alt="Detected aerators labelled with on and off state" loading="lazy"></div>
+        <div class="tile-fig"><img src="assets/img/aer-pred-1.jpg" alt="Detected aerators labelled with on and off state" loading="lazy" width="1600" height="751"></div>
         <div class="tile-body">
           <p class="tile-cat">Object Detection</p>
           <h3>Aerator Detection &amp; On/Off Classification</h3>
@@ -198,12 +219,32 @@
         </div>
       </a>
 
-      <a class="tile rv" href="projects/water-quality.html" data-cats="remote-sensing spectral engineering research">
-        <div class="tile-fig"><img src="assets/img/wqp-pred-tile.jpg" alt="Sample water quality map outputs predicted across a pond scene" loading="lazy"></div>
+      <a class="tile rv" href="projects/water-quality.html" data-cats="remote-sensing spectral engineering research spatial-analysis">
+        <div class="tile-fig"><img src="assets/img/wqp-pred-tile.jpg" alt="Sample water quality map outputs predicted across a pond scene" loading="lazy" width="1120" height="700"></div>
         <div class="tile-body">
           <p class="tile-cat">Regression · Water quality</p>
           <h3>Water Quality Estimation from Sentinel-2</h3>
           <p>Six XGBoost regressors on reflectance and water indices, gated at R² ≥ 0.7. Four of six parameters deployed to wall-to-wall maps.</p>
+          <span class="more">Case study</span>
+        </div>
+      </a>
+
+      <a class="tile rv" href="projects/store-location-intelligence.html" data-cats="spatial-analysis research">
+        <div class="tile-fig"><img src="assets/img/rei-tile.jpg" alt="Map of the top 20 revenue-maximising locations for new stores across the United States" loading="lazy" width="818" height="432"></div>
+        <div class="tile-body">
+          <p class="tile-cat">Spatial Analysis · Retail</p>
+          <h3>Store Location Intelligence</h3>
+          <p>Geospatial enrichment of US metro regions feeding a Random Forest revenue model at 0.83 test R², ranking the top 20 expansion locations.</p>
+          <span class="more">Case study</span>
+        </div>
+      </a>
+
+      <a class="tile rv" href="projects/palm-tree.html" data-cats="remote-sensing spectral">
+        <div class="tile-fig"><img src="assets/img/palm-tile.jpg" alt="Classified palm tree polygon boundaries over a false colour satellite composite" loading="lazy" width="1120" height="700"></div>
+        <div class="tile-body">
+          <p class="tile-cat">Classification · Expert system</p>
+          <h3>Palm Tree Classification &amp; Area Estimation</h3>
+          <p>A four-threshold rule on NIR, red and red edge reflectance separates palm canopy with no training labels. 185 km² of acreage mapped.</p>
           <span class="more">Case study</span>
         </div>
       </a>
@@ -218,7 +259,7 @@
         </div>
       </a>
 
-      <div class="tile rv" data-cats="deep-learning remote-sensing">
+      <div class="tile tile-static rv" data-cats="deep-learning remote-sensing">
         <div class="tile-fig"><div class="tile-glyph" style="background:linear-gradient(135deg,#D62B60,#7A1236)">M.Tech · 2022</div></div>
         <div class="tile-body">
           <p class="tile-cat">Deep Learning</p>
@@ -228,7 +269,7 @@
         </div>
       </div>
 
-      <div class="tile rv" data-cats="deep-learning remote-sensing">
+      <div class="tile tile-static rv" data-cats="deep-learning remote-sensing">
         <div class="tile-fig"><div class="tile-glyph" style="background:linear-gradient(135deg,#1F5F52,#0B2129)">Mandya District · 2022</div></div>
         <div class="tile-body">
           <p class="tile-cat">Classification</p>
@@ -238,7 +279,7 @@
         </div>
       </div>
 
-      <div class="tile rv" data-cats="research">
+      <div class="tile tile-static rv" data-cats="research">
         <div class="tile-fig"><div class="tile-glyph" style="background:linear-gradient(135deg,#8A6A22,#2A2110)">B.Tech · 2019</div></div>
         <div class="tile-body">
           <p class="tile-cat">Geotechnical Research</p>
@@ -262,7 +303,7 @@
 
     <div class="feature rv">
       <div class="feature-fig">
-        <img src="assets/img/bd-workflow.jpg" alt="End-to-end methodology workflow for the pond boundary detection pipeline" loading="lazy">
+        <img src="assets/img/bd-workflow.jpg" alt="End-to-end methodology workflow for the pond boundary detection pipeline" loading="lazy" width="1600" height="841">
       </div>
       <div class="feature-body">
         <h3>Automated pond boundary detection from satellite imagery</h3>
@@ -296,7 +337,7 @@
     <div class="contact-links">
       <a class="clink" href="mailto:zubahme97@gmail.com"><span>zubahme97@gmail.com</span><span>Email</span></a>
       <a class="clink" href="tel:+917406191691"><span>+91 74061 91691</span><span>Phone</span></a>
-      <a class="clink" href="http://www.linkedin.com/in/zubair-ahmed-106103173" target="_blank" rel="noopener"><span>LinkedIn</span><span>Profile ↗</span></a>
+      <a class="clink" href="https://www.linkedin.com/in/zubair-ahmed-106103173" target="_blank" rel="noopener"><span>LinkedIn</span><span>Profile ↗</span></a>
       <a class="clink" href="https://github.com/zubair9703" target="_blank" rel="noopener"><span>github.com/zubair9703</span><span>GitHub ↗</span></a>
       <a class="clink" href="https://medium.com/@zubahme97" target="_blank" rel="noopener"><span>@zubahme97</span><span>Medium ↗</span></a>
       <a class="clink" href="assets/Zubair_Ahmed_Resume.pdf" download><span>Zubair_Ahmed_Resume.pdf</span><span>CV ↓</span></a>

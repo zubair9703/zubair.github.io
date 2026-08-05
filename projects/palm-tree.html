@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palm Tree Classification and Area Estimation — Zubair Ahmed</title>
+<meta name="description" content="A rule-based expert system that classifies palm tree canopy from Sentinel-2 surface reflectance using NIR, red and red edge thresholds, then vectorises the result to measure 185 km² of palm acreage.">
+<link rel="canonical" href="https://zubair9703.github.io/zubair.github.io/projects/palm-tree.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Zubair Ahmed">
+<meta property="og:title" content="Palm Tree Classification and Area Estimation — Zubair Ahmed">
+<meta property="og:description" content="A rule-based expert system that classifies palm tree canopy from Sentinel-2 surface reflectance using NIR, red and red edge thresholds, then vectorises the result to measure 185 km² of palm acreage.">
+<meta property="og:url" content="https://zubair9703.github.io/zubair.github.io/projects/palm-tree.html">
+<meta property="og:image" content="https://zubair9703.github.io/zubair.github.io/assets/img/palm-tile.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0B2129">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/project.css">
+<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="../index.html">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">Case study 06 · Rule-based classification</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#portfolio">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#portfolio">All work</a>
+    <p class="eyebrow">Classification · expert system</p>
+    <h1>Palm Tree Classification and Area Estimation</h1>
+    <p class="lede">
+      Perennial tree crops defeat the usual seasonal cues that classifiers rely on. This study
+      skips supervised learning entirely and separates palm canopy with four reflectance
+      thresholds read directly off the spectral data.
+    </p>
+
+    <dl class="capture">
+      <div><dt>Role</dt><dd>Sole analyst</dd></div>
+      <div><dt>Sensor</dt><dd>Sentinel-2 MSI<br>NIR · red · red edge 1</dd></div>
+      <div><dt>Region</dt><dd>Godavari basin, Andhra Pradesh<br>80.9°–81.35°E · 17.0°–17.3°N</dd></div>
+      <div><dt>Method</dt><dd>Rule-based expert system<br>No training labels</dd></div>
+      <div><dt>Result</dt><dd>185 km² palm acreage<br>Vector polygons</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+
+      <h2>The problem</h2>
+      <p>
+        Classifying palm and estimating its acreage from remote sensing is harder than it looks,
+        and the difficulty comes from the crop being perennial rather than annual.
+      </p>
+      <ul>
+        <li>
+          <strong>Similar foreign spectra.</strong> Other land cover reflects close enough to palm
+          to be pulled into the same class, which misclassifies pixels and inflates the acreage.
+        </li>
+        <li>
+          <strong>Seasonal invariance.</strong> Annual crops announce themselves through a sowing-to-harvest
+          reflectance curve. A perennial does not — its signal is broadly flat across the year, so the
+          phenological separation that normally does the work simply is not there.
+        </li>
+      </ul>
+
+      <h3>Why rule-based rather than supervised</h3>
+      <p>
+        A supervised model was the obvious alternative and was deliberately not used. Given the
+        constraints, the expert system wins on every axis that mattered here:
+      </p>
+      <ul>
+        <li>It can be built quickly from knowledge of the sensor's bands and spectral indices.</li>
+        <li>It is lightweight and fast at inference — no model to train, serve or version.</li>
+        <li>It needs <strong>no labelled data</strong>, which is the expensive part of the alternative.</li>
+      </ul>
+
+      <h2>Method</h2>
+      <p>
+        The system pairs visual image interpretation with the known behaviour of multispectral
+        bands, then queries pixels spatially to find where palm separates from everything else.
+        Those separation points become the thresholds.
+      </p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step"><em>Stage 01</em><span>Define the AOI</span></div>
+      <div class="flow-step"><em>Stage 02</em><span>Query tiles on AOI, date range and cloud cover</span></div>
+      <div class="flow-step"><em>Stage 03</em><span>Clip the STAC items to the AOI</span></div>
+      <div class="flow-step"><em>Stage 04</em><span>Select the most common acquisition date</span></div>
+      <div class="flow-step"><em>Stage 05</em><span>Mosaic the clipped tiles</span></div>
+      <div class="flow-step"><em>Stage 06</em><span>Spatially query reflectance to set thresholds</span></div>
+    </div>
+
+    <figure class="plate plate-tall">
+      <div class="plate-mount">
+        <img src="../assets/img/palm-workflow.png" alt="Methodology flowchart: data extraction and processing, the four-threshold rule based system, then morphological processing and polygonization" loading="lazy" width="900" height="1589">
+      </div>
+      <figcaption><b>Fig. 01</b><span>Methodology for classification and area estimation of palm, from AOI definition through the rule cascade to vector polygons.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The decision rule</h2>
+      <p>
+        A pixel is labelled palm only if it clears all four tests. The NIR band is bounded on both
+        sides — vegetation has to be bright enough in the near infrared to be canopy at all, but
+        not so bright that vigorous non-palm vegetation passes.
+      </p>
+    </div>
+
+    <div class="callout">
+      <span class="k">Classification rule</span>
+      <p class="formula">0.1 &lt; ρ<sub>nir</sub> &lt; 0.3 &nbsp;∧&nbsp; ρ<sub>red</sub> &lt; 0.05 &nbsp;∧&nbsp; ρ<sub>re1</sub> &lt; 0.071</p>
+      <p>All four conditions must hold. Any single failure sends the pixel to <em>non-palm</em>.</p>
+    </div>
+
+    <div class="prose">
+      <table class="dtable">
+        <thead><tr><th>Check</th><th>Threshold</th><th>What it separates</th></tr></thead>
+        <tbody>
+          <tr><td>ρ-nir</td><td class="num">&gt; 0.1</td><td>Rejects non-vegetated surfaces — water, bare soil and built-up, all of which sit low in the near infrared.</td></tr>
+          <tr><td>ρ-nir</td><td class="num">&lt; 0.3</td><td>Caps the upper end, excluding the brightest and most vigorous non-palm vegetation.</td></tr>
+          <tr><td>ρ-red</td><td class="num">&lt; 0.05</td><td>Enforces strong chlorophyll absorption in the red — dense, healthy canopy rather than sparse cover.</td></tr>
+          <tr><td>ρ-re1</td><td class="num">&lt; 0.071</td><td>The red edge does the discriminating work, cutting the look-alike vegetation that survived the first three tests.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Post-processing</h2>
+      <p>
+        A per-pixel rule produces a speckled mask, so the raster is cleaned before it becomes
+        geometry.
+      </p>
+      <ul>
+        <li><strong>Morphological opening and closing</strong> to remove isolated noise pixels and fill small holes inside otherwise solid canopy.</li>
+        <li><strong>Polygonization</strong> of the cleaned mask into vector polygons, ready for visualisation or further GIS analysis.</li>
+      </ul>
+
+      <h2>Results</h2>
+      <p>
+        The classified output maps the spatial distribution of palm across the study area, which
+        totals <strong>185 square kilometres</strong> of palm acreage. The inset shows the polygon
+        boundaries against the false colour composite, where palm reads as the deep red canopy
+        that the rule cascade isolates from the brighter magenta of surrounding cropland.
+      </p>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/palm-map.jpg" alt="Map of palm tree spatial distribution across the study area, with an inset showing classified polygon boundaries over a false colour composite" loading="lazy" width="1600" height="1131">
+      </div>
+      <figcaption><b>Fig. 02</b><span>Spatial distribution of palm trees across the study area, with a detail inset of the vectorised boundaries.</span></figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<div class="wrap p-next">
+  <a href="siras-ewis.html">← SIRAS / EWIS</a>
+  <a href="store-location-intelligence.html">Next: Store Location Intelligence →</a>
+</div>
+
+</main>
+
+<footer class="foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span><a href="mailto:zubahme97@gmail.com" style="color:inherit">zubahme97@gmail.com</a></span>
+</footer>
+
+<script src="../assets/js/alt.js"></script>
+</body>
+</html>

@@ -35,7 +35,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+/* height:auto keeps the intrinsic ratio when max-width shrinks the image —
+   without it, the width/height attributes stretch the picture */
+img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: #fff; }
 
@@ -162,6 +164,9 @@ h1, h2, h3, h4 {
 }
 .plate-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .plate-pair img { width: 100%; }
+/* portrait diagrams — capped so one flowchart does not run for three screens,
+   while staying wide enough that its labels are still readable */
+.plate-tall .plate-mount img { max-height: 1100px; width: auto; }
 
 /* ---------- data tables ---------- */
 
@@ -269,7 +274,11 @@ h1, h2, h3, h4 {
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
-  .nav a:not(.nav-cta) { display: none; }
+  /* stack rather than hide — see the matching rule in alt.css */
+  .bar-in { height: auto; flex-direction: column; gap: 9px; padding-block: 11px; }
+  .nav { gap: 18px; flex-wrap: wrap; justify-content: center; }
+  .nav a { font-size: 11px; letter-spacing: .06em; }
+  html { scroll-padding-top: 108px; }
   .dtable { font-size: 11.5px; }
   .dtable th, .dtable td { padding: 9px 10px; }
 }

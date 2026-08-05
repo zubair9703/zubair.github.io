@@ -36,7 +36,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+/* height:auto keeps the intrinsic ratio when max-width shrinks the image —
+   without it, the width/height attributes stretch the picture */
+img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 ::selection { background: var(--accent); color: #fff; }
 
@@ -249,6 +251,16 @@ h1, h2, h3, h4 {
 .tile .more::after { content: " →"; color: var(--accent); }
 .tile[hidden] { display: none; }
 
+/* tiles with no case study behind them must not offer a click affordance */
+.tile-static { cursor: default; }
+.tile-static:hover { border-color: var(--line); transform: none; box-shadow: 0 2px 14px rgba(11, 33, 41, .07); }
+.tile-static .more::after { content: ""; }
+
+.filter-status {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
 /* ---------- featured ---------- */
 
 /* the workflow diagram is ~1.9:1 — in a side column it either crops or letterboxes,
@@ -333,5 +345,10 @@ h1, h2, h3, h4 {
 }
 @media (max-width: 560px) {
   .grid, .services { grid-template-columns: 1fr; }
-  .nav-links a:not(.nav-cta) { display: none; }
+  /* the header stacks instead of dropping links — a portfolio with no way to
+     reach the work from a phone is worse than a slightly taller bar */
+  .nav-in { height: auto; flex-direction: column; gap: 9px; padding-block: 11px; }
+  .nav-links { gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .nav-links a { font-size: 10.5px; letter-spacing: .06em; }
+  html { scroll-padding-top: 112px; }
 }
