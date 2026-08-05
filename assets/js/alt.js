@@ -10,20 +10,48 @@
 
   if (buttons.length && grid) {
     var tiles = grid.querySelectorAll(".tile");
+    var status = document.querySelector("[data-filter-status]");
 
     var apply = function (cat) {
+      var shown = 0;
       tiles.forEach(function (t) {
         var cats = (t.getAttribute("data-cats") || "").split(/\s+/);
-        t.hidden = !(cat === "all" || cats.indexOf(cat) !== -1);
+        var match = cat === "all" || cats.indexOf(cat) !== -1;
+        t.hidden = !match;
+        if (match) shown++;
       });
+      buttons.forEach(function (b) {
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-filter") === cat));
+      });
+      /* the grid changes silently otherwise — nothing tells a screen reader
+         that the result set moved */
+      if (status) status.textContent = shown + (shown === 1 ? " project" : " projects") + " shown";
+    };
+
+    var known = function (cat) {
+      var ok = false;
+      buttons.forEach(function (b) { if (b.getAttribute("data-filter") === cat) ok = true; });
+      return ok;
     };
 
     buttons.forEach(function (b) {
       b.addEventListener("click", function () {
-        buttons.forEach(function (o) { o.setAttribute("aria-pressed", String(o === b)); });
-        apply(b.getAttribute("data-filter"));
+        var cat = b.getAttribute("data-filter");
+        apply(cat);
+        /* keep the filter in the URL so a filtered view can be shared, and use
+           replaceState so it never fights the #portfolio anchor or the scroll position */
+        if (window.history && history.replaceState) {
+          var url = new URL(window.location.href);
+          if (cat === "all") url.searchParams.delete("filter");
+          else url.searchParams.set("filter", cat);
+          history.replaceState(null, "", url.toString());
+        }
       });
     });
+
+    var initial = null;
+    try { initial = new URL(window.location.href).searchParams.get("filter"); } catch (e) {}
+    if (initial && known(initial)) apply(initial);
   }
 
   /* ---------- reveal ---------- */

@@ -13,18 +13,32 @@ so it can be dropped straight onto GitHub Pages.
 │   ├── aerator-detection.html      # aerator detection & on/off classification
 │   ├── water-quality.html          # water quality estimation
 │   ├── shrimp-index.html           # spectral index research
-│   └── siras-ewis.html             # early warning system
+│   ├── siras-ewis.html             # early warning system
+│   ├── palm-tree.html              # rule-based palm classification & acreage
+│   └── store-location-intelligence.html  # retail site selection, Random Forest
 ├── assets/
 │   ├── css/alt.css                 # homepage
 │   ├── css/project.css             # case study pages
 │   ├── js/alt.js                   # portfolio filters + reveal
 │   ├── img/                        # figures from the project docs
+│   ├── favicon.svg
 │   └── Zubair_Ahmed_Resume.pdf
 ├── .nojekyll                       # stops GitHub Pages running Jekyll on the files
 └── README.md
 ```
 
-## Publish it on GitHub Pages
+## Where it is published
+
+Live at **https://zubair9703.github.io/zubair.github.io/** — the repo is named
+`zubair.github.io`, which is *not* the `<username>.github.io` form, so Pages serves it
+from a subpath rather than the root domain.
+
+Renaming the repo to `zubair9703.github.io` would move the site to
+`https://zubair9703.github.io/`. If you do that, the absolute URLs in the `<head>` of
+every page (`canonical`, `og:url`, `og:image`) must be updated to match — they have to
+be absolute for link previews to work, so they cannot be made relative.
+
+## Publishing from scratch
 
 **1. Create the repository.** Name it `zubair9703.github.io` — a repo named
 `<username>.github.io` is served at the root domain, so the site lands on
@@ -65,6 +79,15 @@ Then set the domain under Settings → Pages and tick **Enforce HTTPS** once the
   `assets/css/project.css`. Change `--accent` in both to reskin the site.
 - **Portfolio filters**: each tile carries `data-cats="..."`. Add a category by adding a
   `<button class="filter" data-filter="your-cat">` and tagging tiles with the same string.
+  The active filter is mirrored into the URL, so `index.html?filter=deep-learning#portfolio`
+  is a shareable link to a filtered view.
+- **Tiles with no case study** behind them use `class="tile tile-static"`, which removes the
+  hover lift and the trailing arrow so they do not look clickable.
+- **Image `width`/`height` attributes must match the file exactly.** They set the aspect ratio
+  the browser reserves before the image loads; a wrong value distorts the picture. Check with
+  any image viewer before pasting them in.
+- **Social previews**: `canonical`, `og:*` and `twitter:card` live in each page's `<head>` and
+  contain absolute URLs — see the note above if the site ever moves.
 - **Adding a project**: copy a file from `projects/`, swap the content, then add a matching
   `<a class="tile">` to the grid in `index.html`.
 - **Figures** live in `assets/img/`, extracted from the source `.docx` files and resized to

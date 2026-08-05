@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Store Location Intelligence — Zubair Ahmed</title>
+<meta name="description" content="Location-based intelligence for retail site selection: geospatial and socioeconomic features joined to Metro CBSA regions, a Random Forest revenue model at 0.83 test R², and the top 20 expansion locations mapped.">
+<link rel="canonical" href="https://zubair9703.github.io/zubair.github.io/projects/store-location-intelligence.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Zubair Ahmed">
+<meta property="og:title" content="Store Location Intelligence — Zubair Ahmed">
+<meta property="og:description" content="Location-based intelligence for retail site selection: geospatial and socioeconomic features joined to Metro CBSA regions, a Random Forest revenue model at 0.83 test R², and the top 20 expansion locations mapped.">
+<meta property="og:url" content="https://zubair9703.github.io/zubair.github.io/projects/store-location-intelligence.html">
+<meta property="og:image" content="https://zubair9703.github.io/zubair.github.io/assets/img/rei-tile.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0B2129">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500;600&family=Karla:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/project.css">
+<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="mark" href="../index.html">ZUBAIR AHMED<span>.</span></a>
+    <span class="coords">Case study 07 · Location intelligence</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="../index.html#portfolio">Work</a>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#contact" class="nav-cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="p-hero">
+  <div class="wrap">
+    <a class="back" href="../index.html#portfolio">All work</a>
+    <p class="eyebrow">Spatial analysis · retail site selection</p>
+    <h1>Identifying Store Expansion Locations with Location Intelligence</h1>
+    <p class="lede">
+      Retail site selection is usually decided on intuition and partial information. This study
+      replaces that with geospatial data enrichment and a revenue model, ranking every US metro
+      region without a store and returning the twenty worth opening in.
+    </p>
+
+    <dl class="capture">
+      <div><dt>Role</dt><dd>Sole analyst</dd></div>
+      <div><dt>Unit of analysis</dt><dd>Metro CBSA regions<br>United States</dd></div>
+      <div><dt>Features</dt><dd>6 socioeconomic<br>&amp; point-of-interest</dd></div>
+      <div><dt>Model</dt><dd>Random Forest regressor<br>100 trees · 80/20 split</dd></div>
+      <div><dt>Result</dt><dd>0.83 test R²<br>Top 20 locations ranked</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prose">
+
+      <h2>The problem</h2>
+      <p>
+        Choosing where to open a retail store is a hard question dressed up as a simple one. The
+        answer depends on customer demographics, on where competitors already sit, and on what
+        surrounds the site — and in practice the decision is often made on guesswork or on whatever
+        information happened to be at hand. The alternative is to treat the question as what it
+        actually is: a spatial one.
+      </p>
+
+      <h3>Objectives</h3>
+      <ul>
+        <li>Integrate and analyse geospatial and socioeconomic data to assess market potential across regions.</li>
+        <li>Train a model that learns the relationship between regional features and commercial performance, and use it to predict high-potential locations.</li>
+        <li>Visualise the results as maps, so the recommendation is legible to the people who have to act on it.</li>
+      </ul>
+
+      <h2>Workflow</h2>
+      <p>
+        Five stages, from choosing what to measure through to naming the regions worth opening in.
+      </p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step"><em>01 Filtering</em><span>Select non-spatial attributes by deductive reasoning</span></div>
+      <div class="flow-step"><em>02 Enrichment</em><span>Spatial join of point datasets onto Metro CBSA regions</span></div>
+      <div class="flow-step"><em>03 Alignment</em><span>Join independent and dependent variables into a training table</span></div>
+      <div class="flow-step"><em>04 Machine learning</em><span>Train and evaluate on RMSE and R²</span></div>
+      <div class="flow-step"><em>05 Allocation</em><span>Rank the top 20 regions by predicted yearly revenue</span></div>
+    </div>
+
+    <div class="prose">
+      <h3>Data enrichment</h3>
+      <p>
+        The independent variables are a mix of census-style attributes and counts derived from point
+        data. Colleges, universities, competitors and shopping centres arrive as individual
+        locations, so each point layer is spatially joined onto the Metro CBSA polygons and
+        aggregated to a per-region count — turning scattered points into a regional attribute the
+        model can use.
+      </p>
+
+      <table class="dtable">
+        <thead><tr><th>Feature</th><th>Type</th><th>Source form</th></tr></thead>
+        <tbody>
+          <tr><td>Median household income</td><td class="num">Continuous</td><td>Regional attribute</td></tr>
+          <tr><td>Population density</td><td class="num">Continuous</td><td>Regional attribute</td></tr>
+          <tr><td>Average (mean) age</td><td class="num">Continuous</td><td>Regional attribute</td></tr>
+          <tr><td>College count</td><td class="num">Count</td><td>Point layer, spatially joined</td></tr>
+          <tr><td>Shopping centre count</td><td class="num">Count</td><td>Point layer, spatially joined</td></tr>
+          <tr><td>Competitor count</td><td class="num">Count</td><td>Point layer, spatially joined</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/rei-workflow.png" alt="Methodology flowchart: exploratory data analysis, train/test split, model training, a test R-squared above 0.80 gate with a retrain loop, then prediction and selection of the top 20 regions" loading="lazy" width="1400" height="875">
+      </div>
+      <figcaption><b>Fig. 01</b><span>Modelling methodology. The R² &gt; 0.80 gate sends the model back for retraining rather than letting a weak fit through to prediction.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Choosing the target</h2>
+      <p>
+        Two candidate target variables were available, and the exploratory analysis decided between
+        them rather than assumption doing it.
+      </p>
+      <ul>
+        <li>
+          <strong>Average customer spend per year was rejected.</strong> Its correlation with the
+          independent variables was weak and negative — there was no signal for a model to learn.
+        </li>
+        <li>
+          <strong>Revenue per year was selected.</strong> It correlated strongly and positively with
+          the independent variables, which also served to validate the deductive reasoning that
+          picked those features in the first place.
+        </li>
+      </ul>
+
+      <h3>Two findings worth keeping</h3>
+      <ul>
+        <li>
+          <strong>Average age correlates negatively with revenue</strong> — younger populations are
+          associated with higher revenue, which is a directional result a site-selection team can
+          act on directly.
+        </li>
+        <li>
+          <strong>Competitor count correlates positively with revenue</strong>, contrary to the
+          initial expectation that competitors would depress it. Rather than discard the variable
+          for disagreeing with the prior, it was retained — competitor presence appears to mark
+          proven retail demand rather than saturated supply.
+        </li>
+      </ul>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/rei-eda.jpg" alt="Pairwise scatter plot matrix of all model variables with fitted regression lines and kernel density plots on the diagonal" loading="lazy" width="1100" height="1100">
+      </div>
+      <figcaption><b>Fig. 02</b><span>Pairwise relationships across all variables. The regression line in each panel is what drove target selection and surfaced the age and competitor findings.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The model</h2>
+      <p>
+        A <strong>Random Forest regressor</strong> with 100 estimators, trained on an 80/20 split.
+        The methodology gates on test performance: a model that fails to clear R² &gt; 0.80 on unseen
+        data is sent back to be retrained rather than carried forward into prediction.
+      </p>
+
+      <table class="dtable">
+        <thead><tr><th>Metric</th><th>Score</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td>Training R²</td><td class="num pass">0.87</td><td>The model explains 87% of the variance in the training data, having learned the pattern between regional features and revenue.</td></tr>
+          <tr><td>Testing R²</td><td class="num pass">0.83</td><td>Held up on unseen data, confirming the relationship generalises rather than being memorised. The narrow train-test gap indicates the fit is not overfit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Results</h2>
+      <p>
+        The trained model was applied to every Metro CBSA region that does not currently have a
+        store, producing a nationwide forecast of the potential market rather than a shortlist
+        assembled by hand. Regions across the Southeast, the Northeast and parts of the West
+        forecast strongly, several exceeding <strong>$10M–$18M per year</strong>.
+      </p>
+      <p>
+        The final twenty were then selected from that full forecast by predicted annual revenue.
+        They are geographically diverse, clustering in the Southeast and Northeast with the
+        remainder spread across the West and South-Central states.
+      </p>
+    </div>
+
+    <figure class="plate">
+      <div class="plate-mount">
+        <img src="../assets/img/rei-maps.jpg" alt="Two maps of the United States: the top 20 revenue-maximising locations for new stores, and forecast revenue per year across all metro regions without a store" loading="lazy" width="1600" height="491">
+      </div>
+      <figcaption><b>Fig. 03</b><span>Left — the final top 20 revenue-maximising locations. Right — forecast revenue across every metro region without a store, the full landscape the twenty were drawn from.</span></figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Conclusion</h2>
+      <p>
+        Combining location-based data enrichment with machine learning identified high-potential
+        regions reliably enough to base an expansion shortlist on — the spatial join is what turns
+        scattered points of interest into features a model can actually learn from.
+      </p>
+
+      <h3>Where it goes next</h3>
+      <p>
+        The current model treats each region as an independent row of attributes, which leaves the
+        geography on the table. A spatially aware model — one that exploits the distribution of the
+        data points themselves rather than only their aggregated counts — should capture
+        location-based effects such as regional clustering and spillover between neighbouring
+        markets, and improve predictive accuracy with them.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<div class="wrap p-next">
+  <a href="palm-tree.html">← Palm Tree Classification</a>
+  <a href="../index.html#portfolio">All work →</a>
+</div>
+
+</main>
+
+<footer class="foot">
+  <span>© <span data-year>2026</span> Zubair Ahmed · Bengaluru, India</span>
+  <span><a href="mailto:zubahme97@gmail.com" style="color:inherit">zubahme97@gmail.com</a></span>
+</footer>
+
+<script src="../assets/js/alt.js"></script>
+</body>
+</html>
