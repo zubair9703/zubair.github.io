@@ -42,8 +42,8 @@ be absolute for link previews to work, so they cannot be made relative.
 
 **1. Create the repository.** Name it `zubair9703.github.io` — a repo named
 `<username>.github.io` is served at the root domain, so the site lands on
-`https://zubair.github.io`. Any other name works too, it just gets served from a
-subpath instead (`https://zubair.github.io/<repo-name>`).
+`https://zubair9703.github.io`. Any other name works too, it just gets served from a
+subpath instead (`https://zubair9703.github.io/<repo-name>`).
 
 **2. Push the files.** From inside this folder:
 
