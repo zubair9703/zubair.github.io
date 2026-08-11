@@ -263,29 +263,22 @@ h1, h2, h3, h4 {
 
 /* ---------- featured ---------- */
 
-/* the workflow diagram is ~1.9:1 — in a side column it either crops or letterboxes,
-   so the feature stacks: full-width figure above, copy below */
+/* the feature stacks rather than running figure beside copy: a landscape figure in a
+   side column either crops or letterboxes, neither of which reads well */
 .feature {
   display: grid; grid-template-columns: 1fr;
   border: 1px solid var(--line); border-radius: 2px; overflow: hidden; background: var(--paper-2);
 }
-/* the featured figure is a wide workflow diagram — it must be readable end to end,
-   so it is fitted whole rather than cropped to fill the column */
+/* full bleed — the figure runs to the card edges. Padding here would frame a
+   photographic cover in white; height:auto still shows any aspect ratio whole */
 .feature-fig {
   background: var(--paper-2);
   border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(16px, 2.4vw, 30px);
-  min-height: 0;
-  max-height: 560px;
+  overflow: hidden;
 }
 .feature-fig img {
   width: 100%;
   height: auto;
-  max-height: 100%;
-  object-fit: contain;
 }
 .feature-body { padding: clamp(26px, 4vw, 44px); }
 .feature h3 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; margin-bottom: 14px; }
