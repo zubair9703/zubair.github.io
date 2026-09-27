@@ -150,7 +150,7 @@
         <li>Training and hyperparameter optimisation across six model configurations.</li>
         <li>An <strong>Xarray/Dask-based Sentinel-2 data extraction pipeline</strong> feeding the models.</li>
         <li>A two-stage detection-segmentation pipeline: <strong>YOLOv8 proposes pond regions, SAM ViT-H refines them into precise masks</strong>, which are then vectorised to GeoJSON.</li>
-        <li>A Temporal-orchestrated workflow that <strong>splits the process into three stages on independent task queues</strong>, so each can be scaled and tuned separately.</li>
+        <li>A Temporal-orchestrated workflow that <strong>splits the process into stages on independent task queues</strong>, so each can be scaled and tuned separately.</li>
         <li>A FastAPI trigger-and-poll API over the workflow.</li>
         <li>Docker packaging with separate API and worker images.</li>
       </ul>
@@ -206,7 +206,7 @@
     <div class="prose">
       <h2>Results</h2>
       <ul>
-        <li>Processes three 1.3 × 1.3 km images in about two minutes.</li>
+        <li>Processes a tile — three 1.3 × 1.3 km images — in about two minutes.</li>
         <li>Replaces an average of 30 minutes of manual digitisation per tile with two minutes of GeoAI segmentation.</li>
         <li>94% mIoU sustained across four geographically distinct regions.</li>
       </ul>

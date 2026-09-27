@@ -101,7 +101,7 @@
       <h3>Data enrichment</h3>
       <p>
         The independent variables are a mix of census-style attributes and counts derived from point
-        data. Colleges, universities, competitors and shopping centres arrive as individual
+        data. Colleges and universities, competitors and shopping centres arrive as individual
         locations, so each point layer is spatially joined onto the Metro CBSA polygons and
         aggregated to a per-region count — turning scattered points into a regional attribute the
         model can use.
@@ -113,7 +113,7 @@
           <tr><td>Median household income</td><td class="num">Continuous</td><td>Regional attribute</td></tr>
           <tr><td>Population density</td><td class="num">Continuous</td><td>Regional attribute</td></tr>
           <tr><td>Average (mean) age</td><td class="num">Continuous</td><td>Regional attribute</td></tr>
-          <tr><td>College count</td><td class="num">Count</td><td>Point layer, spatially joined</td></tr>
+          <tr><td>College and university count</td><td class="num">Count</td><td>Point layer, spatially joined</td></tr>
           <tr><td>Shopping centre count</td><td class="num">Count</td><td>Point layer, spatially joined</td></tr>
           <tr><td>Competitor count</td><td class="num">Count</td><td>Point layer, spatially joined</td></tr>
         </tbody>
@@ -130,8 +130,8 @@
     <div class="prose">
       <h2>Choosing the target</h2>
       <p>
-        Two candidate target variables were available, and the exploratory analysis decided between
-        them rather than assumption doing it.
+        Two candidate target variables were available, and the exploratory analysis, not assumption,
+        decided between them.
       </p>
       <ul>
         <li>
@@ -189,7 +189,7 @@
         The trained model was applied to every Metro CBSA region that does not currently have a
         store, producing a nationwide forecast of the potential market rather than a shortlist
         assembled by hand. Regions across the Southeast, the Northeast and parts of the West
-        forecast strongly, several exceeding <strong>$10M–$18M per year</strong>.
+        forecast strongly, with several at <strong>$10M–$18M per year</strong>.
       </p>
       <p>
         The final twenty were then selected from that full forecast by predicted annual revenue.

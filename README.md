@@ -91,6 +91,6 @@ Then set the domain under Settings → Pages and tick **Enforce HTTPS** once the
 - **Adding a project**: copy a file from `projects/`, swap the content, then add a matching
   `<a class="tile">` to the grid in `index.html`.
 - **Figures** live in `assets/img/`, extracted from the source `.docx` files and resized to
-  1600 px on the long edge.
+  at most 1600 px on the long edge.
 - **The hero background** is the Sentinel-2 false colour composite, set in `alt.css` under
   `.hero::before`. Replace `assets/img/fcc-delta-light.jpg` to swap the scene.
